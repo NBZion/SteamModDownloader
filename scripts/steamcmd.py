@@ -1,4 +1,3 @@
-from math import modf
 import os
 from re import sub
 import wget

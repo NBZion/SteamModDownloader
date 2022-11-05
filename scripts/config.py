@@ -11,14 +11,14 @@ def setConf(choice,val):
         print('Invalid Number')
         sys.exit()
     if choice=="2":
-        if not os.path.exists(val):
+        if not os.path.exists(val) and val!="":
             print('Invalid Path')
             sys.exit()
     js=json.load(open('conf.json'))
     js[confch]=val
     print(js)
     with open('conf.json','w') as f:
-        json.dump(js,f)
+        json.dump(js,f,indent=4)
         f.close()
 
 def fetchConf(val):

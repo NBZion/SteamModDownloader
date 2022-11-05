@@ -3,8 +3,6 @@ from scripts.config import fetchConf
 import requests
 from bs4 import BeautifulSoup
 
-insDir=fetchConf('inslDir')
-gameId=fetchConf('gameId')
 
 def processUrl(inp):
     strspl=inp.split('id=')
@@ -22,6 +20,8 @@ def modCollectCheck(inp):
     else:
         return "mod"
 def downMod(url):
+    insDir=fetchConf('inslDir')
+    gameId=fetchConf('gameId')
     res=requests.get(url)
     doc=BeautifulSoup(res.text,"html.parser")
     title=doc.head.title.text.split("::")[1]

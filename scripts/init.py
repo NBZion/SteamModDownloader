@@ -2,13 +2,17 @@ from scripts.steamcmd import checkAndDownloadSteamCmd
 import os
 import scripts.config as conf
 import scripts.steam as steam
-def checkConfig():
+def checkConf():
     if not os.path.exists('./conf.json'):
-        os.system('touch conf.json')
-def checkPath():
+        with open('conf.json','w') as f:
+            f.write('{"inslDir":"","gameId":""}')
+            f.close()
     if not os.path.exists(conf.fetchConf('inslDir')):
-        inp=input('Please Reinput path here: ')
+        inp=input('Please ReInput path here: ')
         conf.setConf("2",inp)
+    if conf.fetchConf('gameId') == "":
+        inp=input('Please ReInput desired gameId here: ')
+        conf.setConf("1",inp)
 def workshop():
     workUrl=input("Input Workshop Url: ")
     urlCheck=steam.modCollectCheck(workUrl)
@@ -28,7 +32,7 @@ def config():
     val=input('Input: ')
     conf.setConf(inp,val)
 def start():
-    checkPath()
+    checkConf()
     checkAndDownloadSteamCmd()
     print('Do you want to [1]Install Mods or [2]Configure the Config?')
     inp=input('Input: ')

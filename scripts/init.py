@@ -2,6 +2,9 @@ from scripts.steamcmd import checkAndDownloadSteamCmd
 import os
 import scripts.config as conf
 import scripts.steam as steam
+def checkConfig():
+    if not os.path.exists('./conf.json'):
+        os.system('touch conf.json')
 def checkPath():
     if not os.path.exists(conf.fetchConf('inslDir')):
         inp=input('Please Reinput path here: ')

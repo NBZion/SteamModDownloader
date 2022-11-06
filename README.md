@@ -8,18 +8,17 @@ For All The Needs for Non-Steam Buyers.
 
 ## Installation
 
-Download as Zip and Extract. make sure to install the requirements
-
+Download Steamdown.sh from Releases tab and run the following commands as soon as your in the directory...
 ```bash
-pip install -r requirements.txt
+chmod +x ./steamdown.sh
+./steamdown.sh install
 ```
-
 ## Usage
-Simply execute in the terminal
+Simply execute in the terminal when you are in the directory of the script
 ```
-python ./__main__.py
+./steamdown.sh
 ```
-when you are in the directory of the script
+ 
 ## Some Things To Note...
 
 - This Project only works in Linux(Will work with Windows Compatability soon)
@@ -27,5 +26,5 @@ when you are in the directory of the script
 
 ## TODO
 - Windows Support
-- ~~ Wrapper Scripts ~~
+-  ✅ Wrapper Scripts 
 

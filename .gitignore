@@ -1,4 +1,4 @@
 /env
-/scripts/steamcmd/*
+/scripts/steamcmd/
 /scripts/__pycache__
 conf.json

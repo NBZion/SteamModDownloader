@@ -12,6 +12,8 @@ conDir=workDirectory+'/steamapps/workshop/content/'
 tarFile=None
 
 def checkAndDownloadSteamCmd():
+    if not os.path.exists(steamCmdPath):
+        os.mkdir(steamCmdPath)
     if len(os.listdir(steamCmdPath)) == 0:
         print("SteamCMD not present, Downloading...")
         wget.download(steamCmdUrl,steamCmdPath)

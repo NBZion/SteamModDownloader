@@ -9,6 +9,7 @@ For All The Needs for Non-Steam Buyers.
 ## Installation
 
 Download Steamdown.sh from Releases tab and run the following commands as soon as your in the directory...
+(Please put the script and execute to where you want the program to be)
 ```bash
 chmod +x ./steamdown.sh
 ./steamdown.sh install

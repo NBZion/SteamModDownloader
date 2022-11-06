@@ -27,5 +27,5 @@ when you are in the directory of the script
 
 ## TODO
 - Windows Support
-~~ Wrapper Scripts ~~
+- ~~ Wrapper Scripts ~~
 

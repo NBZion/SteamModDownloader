@@ -32,7 +32,7 @@ def checkAndDownloadSteamCmd():
 def download(id,gameId,name,insDir):
     print('Downloading '+ name+'(MODID: '+id+' GAMEID: '+gameId+')')
     print('--------------------------------------------------')
-    subprocess.call([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
+    subprocess.run([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
     print('Moving and Renaming ' +name+'('+id+')')
     modFol=conDir+gameId+'/'+id+'/'

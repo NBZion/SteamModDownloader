@@ -1,16 +1,23 @@
+import scripts.config as conf
+
 import os
 from re import sub
 import wget
 import subprocess
 import shutil
 import time
+
 # Variables
 steamCmdUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
 steamCmdPath="./scripts/steamcmd/"
 workDirectory=os.getcwd()+'/scripts/steamcmd/workshop'
 conDir=workDirectory+'/steamapps/workshop/content/'
 tarFile=None
-
+def anonCheck():
+    if conf.fetchConf("anon") == "false":
+        return conf.fetchConf("logName") + " " + conf.fetchConf("logPass")
+    else:
+        return "anonymous"
 def checkAndDownloadSteamCmd():
     if not os.path.exists(steamCmdPath):
         os.mkdir(steamCmdPath)
@@ -25,7 +32,7 @@ def checkAndDownloadSteamCmd():
 def download(id,gameId,name,insDir):
     print('Downloading '+ name+'('+id+')')
     print('--------------------------------------------------')
-    subprocess.call([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,'+login anonymous',f'+workshop_download_item {gameId} {id}','+exit'])
+    subprocess.call([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
     print('Moving and Renaming ' +name+'('+id+')')
     modFol=conDir+gameId+'/'+id+'/'

@@ -1,37 +1,46 @@
-
 # SteamModDownloader
-For All The Needs for Non-Steam Buyers.
-
-
-
-
+Steam Workshop Downloader for Linux Users. 
+Developed by NBZion.
 
 ## Installation
-
-Download Steamdown.sh from Releases tab and run the following commands as soon as your in the directory...
-(Please put the script and execute to where you want the program to be)
+Download `swd` from releases tab, and run the following commands:
 ```bash
-chmod +x ./steamdown.sh
-./steamdown.sh install
+chmod +x ./swd # Allow execution
+./swd install # Execute script
 ```
-## Usage
-Simply execute in the terminal when you are in the directory of the script
+If you want to replace your already existing installation completely:
+```bash
+./swd reinstall
 ```
-./steamdown.sh
-```
-## Features
 
+## Usage
+To start SWD (assuming it has been installed), run this command:
+```
+./swd launch
+```
+Here's a list of all the settings and what they are:
+```js
+downloadDir: the directory mods will be downloaded to.
+anonymousMode: whether or not to use a real account.
+steamAccountName: account username if not using anonymous mode.
+steamPassword: account password if not using anonymous mode.
+gameID: ID of the game you want the workshop mods for.
+```
+These are configured at startup once, and can be changed in settings.
+To download your mods, simply select the "Download Mods" option and
+paste your workshop url/link. It will be downloaded to `downloadDir`.
+
+## Features
 - Collection Support
  
+## Currently Known Issues
+- Downloading a mod may not work until you delete the steamcmd folder and try to re-download it.
 
-## Current Known Issues
-- Randomly a mod doesn't download and then continues to make hte other mods not download, 1st thing to do is to use an actual account instead of anonymous, if that doesn't work then delete steamcmd folder and make it redownload :)
 ## Some Things To Note...
-
-- This Project only works in Linux(Will work with Windows Compatability soon)
-- My code is Messy so feel free to PR any changes!
-
-- This project is still being updated, it's just that i'm busy or i dont find a feature to be added, so just please suggest stuff or report stuff in the issues page
+- This project is currently only built for the linux python version.
+- Some mods may not download as they require an actual account.
+- My code is messy, so feel free to pull-request any changes!
+- This project is still being updated, it's just that I'm either busy or don't have a feature to add, so please suggest potential features or report bugs in the issues page.
 
 ## TODO
 - Windows Support

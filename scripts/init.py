@@ -2,65 +2,107 @@ from scripts.steamcmd import checkAndDownloadSteamCmd
 import os
 import scripts.config as conf
 import scripts.steam as steam
-import sys
-def checkConf():
-    if not os.path.exists('./conf.json'):
-        with open('conf.json','w') as f:
-            f.write('{"inslDir":"","gameId":"","anon":"","logName":"","logPass":""}')
-            f.close()
-    if not os.path.exists(conf.fetchConf('inslDir')):
-        inp=input('Please ReInput path here: ')
-        conf.setConf("2",inp)
-    if conf.fetchConf('gameId') == "":
-        inp=input('Please ReInput desired gameId here: ')
-        conf.setConf("1",inp)
-    if conf.fetchConf('anon') == "":
-        print("DISCLAIMER: ALL INFORMATION AREN'T GATHERED AND IS ONLY STORED IN THE LOCAL MACHINE!")
-        inp=input("Want to use anonymous?\n[1]True \n[2]False\nInput:")
-        if inp=="1":
-            conf.setConf("3","true")
-        elif inp=="2":
-            conf.setConf("3","false")
-        else:
-            print('Invalid Choice')
-            sys.exit()
-    if conf.fetchConf("anon") == "false" and conf.fetchConf("logName") == "":
-        name, passc = conf.getCreds()
-        print(name)
-        print(passc)
-        conf.setConf("4",name)
-        conf.setConf("5",passc)
-def workshop():
-    workUrl=input("Input Workshop Url: ")
-    urlCheck=steam.modCollectCheck(workUrl)
-    if  urlCheck == "mod":
-        steam.downMod(workUrl)
-    elif urlCheck == "collection":
-        steam.downCollect(workUrl)
-    else:
-        print('Invalid URL')
-    print('--------------------------------------------------')
-    workshop()
-def config():
-    print("DISCLAIMER: ALL INFORMATION AREN'T GATHERED AND IS ONLY STORED IN THE LOCAL MACHINE!")
-    print('Which of these do you want to change? \n[1]Game Id \n[2]Installation Dir(Where mods are placed)\n[3]Use Anonymous?(type true or false exactly)\n[4]Steam Username\n[5]Steam Password')
-    inp=input('Input: ')
-    print('--------------------------------------------------')
-    print('What value do you want to change it to?')
-    val=input('Input: ')
-    conf.setConf(inp,val)
-def start():
-    checkConf()
-    checkAndDownloadSteamCmd()
-    print('Do you want to [1]Install Mods or [2]Configure the Config?')
-    inp=input('Input: ')
-    if inp=="1":
-        workshop()
-    elif inp=="2":
-        config()
-    else:
-        print('Invalid Choice')
-        start()
-    
+from sys import exit
 
-    
+def checkConfig():
+    # Make configuration file if missing
+    if not os.path.exists('./conf.json'):
+        with open('conf.json', 'w') as f:
+            f.write('{"downloadDir":"","anonymousMode":"","steamAccountName":"","steamPassword":"","gameID":""}')
+
+    # Reconfigure download directory setting if invalid
+    if not os.path.exists(conf.fetchConfiguration('downloadDir')):
+        prompt = input('Non-existent mod download directory, please enter a new one => ')
+        conf.configureSetting('downloadDir', prompt)
+
+    # Reconfigure gameID if empty
+    if conf.fetchConfiguration('gameID') == "":
+        prompt = input('gameID setting empty, please enter a new one => ')
+        conf.configureSetting('gameID', prompt)
+
+    # Reconfigure anonymous mode if empty
+    if conf.fetchConfiguration('anonymousMode') == "":
+        print("(DISCLAIMER) Information isn't gathered, and is only stored locally.")
+        anonymous = input("Use anonymous mode? [Y\\N]\n> ").lower()
+        if anonymous == "y":
+            conf.configureSetting('anonymousMode', "true")
+        elif anonymous == "n":
+            conf.configureSetting('anonymousMode', "false")
+        else:
+            print('(ERROR) Invalid input passed, exiting.')
+            exit()
+
+    # Check if anonymous mode is off and ask for credentials
+    if conf.fetchConfiguration("anonymousMode") == "false" and conf.fetchConfiguration("steamAccountName") == "":
+        username, password = conf.getCredentials()
+        #print(name)
+        #print(passc)
+        conf.configureSetting('steamAccountName', username)
+        conf.configureSetting('steamPassword', password)
+
+def downloadMods():
+    while True:
+        workshopURL = input("Mod/Collection Workshop URL: ")
+        workshopURLType = steam.checkType(workshopURL)
+        if workshopURLType == "mod":
+            print('(PROCESS) Downloading mod...')
+            steam.downloadMod(workshopURL)
+            break
+        elif workshopUrlType == "collection":
+            print('(PROCESS) Downloading collection...')
+            steam.downloadCollection(workshopURL)
+            break
+        else:
+            print('(ERROR) Invalid URL, awaiting new.')
+    #print('--------------------------------------------------')
+
+def configure():
+    print("(DISCLAIMER) Information isn't gathered, and is only stored locally.")
+    print(
+        'Setting List:\n'
+        '[1] Game ID \n'
+        '[2] Download Directory\n'
+        '[3] Anonymous Mode\n'
+        '[4] Steam Username\n'
+        '[5] Steam Password'
+    )
+    prompt = input('> ')
+    #print('--------------------------------------------------')
+    print('What value do you want to change it to?')
+    value = input('> ')
+    match prompt:
+        case '1':
+            setting='gameID'
+        case '2':
+            setting='downloadDir'
+        case '3':
+            setting='anonymousMode'
+        case '4':
+            setting='steamAccountName'
+        case '5':
+            setting='steamPassword'
+        case _:
+            print('(ERROR) Invalid setting id, exiting.')
+            exit()
+    conf.configureSetting(setting, value)
+    start()
+
+def start():
+    checkConfig()
+    checkAndDownloadSteamCmd()
+    while True:
+        print('Welcome to SWD!')
+        print('[1] => Download Mods\n[2] => Open Settings\n[3] => Exit')
+        prompt = input('> ')
+        if prompt == '1':
+            downloadMods()
+            break
+        elif prompt == '2':
+            configure()
+            break
+        elif prompt == '3':
+            exit()
+        else:
+            print('(ERROR) Invalid option passed, exiting.')
+            exit()
+start()

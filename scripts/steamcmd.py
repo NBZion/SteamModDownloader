@@ -1,5 +1,4 @@
 import scripts.config as conf
-
 import os
 from re import sub
 import wget
@@ -14,8 +13,8 @@ workDirectory=os.getcwd()+'/scripts/steamcmd/workshop'
 conDir=workDirectory+'/steamapps/workshop/content/'
 tarFile=None
 def anonCheck():
-    if conf.fetchConf("anon") == "false":
-        return conf.fetchConf("logName") + " " + conf.fetchConf("logPass")
+    if conf.fetchConfiguration("anonymousMode") == "false":
+        return conf.fetchConfiguration("steamAccountName") + " " + conf.fetchConf("steamPassword")
     else:
         return "anonymous"
 def checkAndDownloadSteamCmd():
@@ -28,16 +27,15 @@ def checkAndDownloadSteamCmd():
         os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
         os.mkdir('./scripts/steamcmd/workshop')
     else:
-        return 
+        return
 def download(id,gameId,name,insDir):
     print('Downloading '+ name+'(MODID: '+id+' GAMEID: '+gameId+')')
     print('--------------------------------------------------')
     subprocess.run([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
-    print('Moving and Renaming ' +name+'('+id+')')
+    print('Moving and Renaming ' +name+' ('+id+')')
     modFol=conDir+gameId+'/'+id+'/'
     outPathName=insDir+'/'+name
-    if os.path.exists(outPathName): print('Updating File(Existing File)')
+    if os.path.exists(outPathName): print('Updating File (Existing File)')
     shutil.copytree(modFol,outPathName,dirs_exist_ok=True)
     shutil.rmtree(modFol)
-    

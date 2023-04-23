@@ -1,0 +1,63 @@
+#!/bin/bash
+# It is possible to add a silent parameter to disable all of the messages, but I do not include it here.
+option=$1
+
+function install {
+    # Warning and continue prompt
+    echo "[WARN] This action will download SWD in your local directory."
+    read -p "[PROMPT] (Press CTRL+C to quit, or ENTER to continue) " confirm
+
+    # Clone SWD to current directory
+    git clone https://github.com/NBZion/SteamModDownloader.git
+
+    # Remove [.git] and install dependencies.
+    rm -rf .git
+    pip install -r requirements.txt
+
+    # Success message
+    echo "[SUCCESS] You can now launch SWD."
+}
+
+function reinstall {
+    # Warning and continue prompt
+    echo "[WARN] This action will delete all files in this directory, and re-download SWD in your local directory."
+    echo "[WARN] Make sure there are no important files in this directory before continuing! (This will also destroy your configuration, save it.)"
+    read -p "[PROMPT] (Press CTRL+C to quit, or ENTER to continue) " confirm
+
+    # Delete SWD files
+    fcount=$(($(ls -1q | wc -l)-1))
+    echo "[PROCESS] Deleting $fcount files."
+    find . ! -name "$(basename "$0")" -type f \( ! -iname ".*" \) -exec rm -f {} +
+
+    # Clone SWD to current directory
+    git clone https://github.com/NBZion/SteamModDownloader.git
+
+    # Remove [.git] and install dependencies.
+    rm -rf .git
+    pip install -r requirements.txt
+
+    # Success message
+    echo "[SUCCESS] You can now launch SWD."
+}
+
+function launch {
+    echo "[PROCESS] Starting SWD."
+    # Run tool. (Assume python3 available)
+    python3 __main__.py
+}
+
+case $option in
+    "install")
+        install
+        ;;
+    "reinstall")
+        reinstall
+        ;;
+    "launch")
+        launch
+        ;;
+    *)
+        echo "[ERROR] Invalid option passed, exiting with code 1."
+        exit 1
+        ;;
+esac

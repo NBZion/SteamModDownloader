@@ -15,9 +15,9 @@ If you want to replace your already existing installation completely:
 ```
 
 ## Usage
-To start SMD (assuming it has been installed), run this command:
+To start SMD (assuming it has been installed properly), run this command:
 ```
-./swd launch
+./smd launch
 ```
 Here's a list of all the settings and what they are:
 ```js

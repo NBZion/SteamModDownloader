@@ -48,7 +48,7 @@ def downloadMods():
             print('(PROCESS) Downloading mod...')
             steam.downloadMod(workshopURL)
             break
-        elif workshopUrlType == "collection":
+        elif workshopURLType == "collection":
             print('(PROCESS) Downloading collection...')
             steam.downloadCollection(workshopURL)
             break

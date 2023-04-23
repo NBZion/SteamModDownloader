@@ -4,7 +4,7 @@ option=$1
 
 function install {
     # Check if files already exist
-    if [[ -f scripts ]] && [[ -f __main__.py ]]; then
+    if [[ -e scripts ]] && [[ -e __main__.py ]]; then
         reinstall
     fi
     

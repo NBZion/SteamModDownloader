@@ -1,30 +1,31 @@
 # SteamModDownloader
-Steam Workshop Downloader for Linux Users. 
+A Steam Workshop Downloader cli-tool for Linux Users,
+ 
 Developed by NBZion.
 
 ## Installation
-Download `swd` from releases tab, and run the following commands:
+Download `smd` from releases tab, and run the following commands:
 ```bash
-chmod +x ./swd # Allow execution
-./swd install # Execute script
+chmod +x ./smd # Allow execution
+./smd install # Execute script
 ```
 If you want to replace your already existing installation completely:
 ```bash
-./swd reinstall
+./smd reinstall
 ```
 
 ## Usage
-To start SWD (assuming it has been installed), run this command:
+To start SMD (assuming it has been installed), run this command:
 ```
 ./swd launch
 ```
 Here's a list of all the settings and what they are:
 ```js
-downloadDir: the directory mods will be downloaded to.
-anonymousMode: whether or not to use a real account.
-steamAccountName: account username if not using anonymous mode.
-steamPassword: account password if not using anonymous mode.
-gameID: ID of the game you want the workshop mods for.
+'downloadDir': the directory mods will be downloaded to.
+'anonymousMode': whether or not to use a real account.
+'steamAccountName': account username if not using anonymous mode.
+'steamPassword': account password if not using anonymous mode.
+'gameID': ID of the game you want the workshop mods for.
 ```
 These are configured at startup once, and can be changed in settings.
 To download your mods, simply select the "Download Mods" option and

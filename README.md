@@ -1,6 +1,6 @@
 # SteamModDownloader
-A Steam Workshop Downloader cli-tool for Linux Users,
- 
+A Steam Workshop Downloader CLI-tool for linux,
+
 Developed by NBZion.
 
 ## Installation

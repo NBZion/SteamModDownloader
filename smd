@@ -1,0 +1,104 @@
+#!/bin/bash
+# It is possible to add a silent parameter to disable all of the messages, but I do not include it here.
+option=$1
+
+function install {
+    # Check if files already exist
+    if [[ -e scripts ]] && [[ -e __main__.py ]]; then
+        reinstall
+    fi
+    
+    # Warning and continue prompt
+    echo "[WARN] This action will download SMD in your local directory."
+    read -p "[PROMPT] (Press CTRL+C to quit, or ENTER to continue) " confirm
+
+    # Clone SMD to current directory
+    git clone https://github.com/NBZion/SteamModDownloader.git
+    
+    # Move files to current directory and dispose of cloned folder
+    mv ./SteamModDownloader/* .
+    rm -rf ./SteamModDownloader
+
+    # Remove [.git] and install dependencies.
+    rm -rf .git
+    pip install -r requirements.txt
+
+    # Success message
+    echo "[SUCCESS] You can now launch SMD."
+}
+
+function reinstall {
+    # Warning and continue prompt
+    echo "[WARN] This action will delete all files in this directory, and re-download SMD in your local directory."
+    echo "[WARN] Make sure there are no important files in this directory before continuing! (This will also destroy your configuration, save it.)"
+    read -p "[PROMPT] (Press CTRL+C to quit, or ENTER to continue) " confirm
+
+    # Delete SMD files
+    fcount=$(($(ls -1q | wc -l)-1))
+    echo "[PROCESS] Deleting $fcount files/folders."
+    rm -rf ./*
+
+    # Clone SMD to current directory
+    git clone https://github.com/NBZion/SteamModDownloader.git
+
+    # Move files to current directory and dispose of cloned folder
+    mv ./SteamModDownloader/* .
+    rm -rf ./SteamModDownloader
+    
+    # Remove [.git] and install dependencies.
+    rm -rf .git
+    pip install -r requirements.txt
+
+    # Success message
+    echo "[SUCCESS] You can now launch SMD."
+}
+
+function update {
+    # Create temporary folder for update
+    git clone https://github.com/NBZion/SteamModDownloader.git update/
+    
+    # Remove scripts
+    rm -rf ./scripts
+    
+    # Update scripts
+    echo "[PROCESS] Updating scripts (1/2)"
+    mv ./update/scripts .
+
+    # Remove wrapper script
+    rm -rf ./smd
+    
+    # Update wrapper script
+    echo "[PROCESS] Updating smd (2/2)"
+    mv ./update/smd .
+    
+    # Remove temporary folder
+    rm -rf ./update
+    
+    # Success message
+    echo "[SUCCESS] Updated SMD."
+}
+
+function launch {
+    echo "[PROCESS] Starting SMD."
+    # Run tool. (Assume python3 available)
+    python3 __main__.py
+}
+
+case $option in
+    "install")
+        install
+        ;;
+    "reinstall")
+        reinstall
+        ;;
+    "update")
+        update
+        ;;
+    "launch")
+        launch
+        ;;
+    *)
+        echo "[ERROR] Invalid option passed, exiting with code 1."
+        exit 1
+        ;;
+esac

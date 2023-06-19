@@ -4,7 +4,6 @@ from re import sub
 import wget
 import subprocess
 import shutil
-import time
 
 # Variables
 steamCmdUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"

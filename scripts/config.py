@@ -1,6 +1,4 @@
 import json
-import os
-import sys
 from getpass import getpass
 
 def configureSetting(setting, val):

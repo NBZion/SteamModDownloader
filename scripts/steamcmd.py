@@ -14,7 +14,7 @@ conDir=workDirectory+'/steamapps/workshop/content/'
 tarFile=None
 def anonCheck():
     if conf.fetchConfiguration("anonymousMode") == "false":
-        return conf.fetchConfiguration("steamAccountName") + " " + conf.fetchConf("steamPassword")
+        return conf.fetchConfiguration("steamAccountName") + " " + conf.fetchConfiguration("steamPassword")
     else:
         return "anonymous"
 def checkAndDownloadSteamCmd():

@@ -61,16 +61,23 @@ function update {
     rm -rf ./scripts
     
     # Update scripts
-    echo "[PROCESS] Updating scripts (1/2)"
+    echo "[PROCESS] Updating scripts (1/3)"
     mv ./update/scripts .
 
     # Remove wrapper script
     rm -rf ./smd
     
     # Update wrapper script
-    echo "[PROCESS] Updating smd (2/2)"
+    echo "[PROCESS] Updating smd (2/3)"
     mv ./update/smd .
     
+    # Remove old version.txt
+    rm -rf ./version.txt
+    
+    # Update version.txt
+    echo "[PROCESS] Updating versions.txt(3/3)"
+    mv ./update/version.txt .
+
     # Remove temporary folder
     rm -rf ./update
     

@@ -4,8 +4,10 @@ import scripts.config as conf
 import scripts.steam as steam
 from sys import exit
 
+
 def checkVersion():
-    print("Initial")
+    currentVersion = open('version.txt','w').readlines()
+    
 
 def checkConfig():
     # Make configuration file if missing
@@ -91,6 +93,7 @@ def configure():
     start()
 
 def start():
+    checkVersion()
     checkConfig()
     checkAndDownloadSteamCmd()
     while True:

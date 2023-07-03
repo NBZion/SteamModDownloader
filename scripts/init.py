@@ -4,6 +4,9 @@ import scripts.config as conf
 import scripts.steam as steam
 from sys import exit
 
+def checkVersion():
+    print("Initial")
+
 def checkConfig():
     # Make configuration file if missing
     if not os.path.exists('./conf.json'):

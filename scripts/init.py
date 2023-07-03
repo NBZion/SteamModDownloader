@@ -3,12 +3,17 @@ import os
 import scripts.config as conf
 import scripts.steam as steam
 from sys import exit
+import requests
 
 
 def checkVersion():
-    currentVersion = open('version.txt','w').readlines()
-    
+    currentVersion = open('version.txt','r').readline()
+    listedVersion = requests.get("https://raw.githubusercontent.com/NBZion/SteamModDownloader/master/version.txt").text
 
+    if currentVersion != listedVersion:
+        print("[WARNING] Please update SMD with smd update!")
+
+    
 def checkConfig():
     # Make configuration file if missing
     if not os.path.exists('./conf.json'):

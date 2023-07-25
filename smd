@@ -8,6 +8,9 @@ function install {
         reinstall
     fi
     
+    # Make venv(due to recent python changes)
+    python3 -m env .clientEnv
+
     # Warning and continue prompt
     echo "[WARN] This action will download SMD in your local directory."
     read -p "[PROMPT] (Press CTRL+C to quit, or ENTER to continue) " confirm
@@ -21,7 +24,7 @@ function install {
 
     # Remove [.git] and install dependencies.
     rm -rf .git
-    pip install -r requirements.txt
+    ./.clientEnv/bin/pip install -r requirements.txt
 
     # Success message
     echo "[SUCCESS] You can now launch SMD."
@@ -41,13 +44,16 @@ function reinstall {
     # Clone SMD to current directory
     git clone https://github.com/NBZion/SteamModDownloader.git
 
+    # Make venv(due to recent python changes)
+    python3 -m env .clientEnv
+
     # Move files to current directory and dispose of cloned folder
     mv ./SteamModDownloader/* .
     rm -rf ./SteamModDownloader
     
     # Remove [.git] and install dependencies.
     rm -rf .git
-    pip install -r requirements.txt
+    ./.clientEnv/bin/pip install -r requirements.txt
 
     # Success message
     echo "[SUCCESS] You can now launch SMD."
@@ -88,7 +94,7 @@ function update {
 function launch {
     echo "[PROCESS] Starting SMD."
     # Run tool. (Assume python3 available)
-    python3 __main__.py
+    ./.clientEnv/bin/python3 __main__.py
 }
 
 case $option in

@@ -45,8 +45,6 @@ def checkConfig():
     # Check if anonymous mode is off and ask for credentials
     if conf.fetchConfiguration("anonymousMode") == "false" and conf.fetchConfiguration("steamAccountName") == "":
         username, password = conf.getCredentials()
-        #print(name)
-        #print(passc)
         conf.configureSetting('steamAccountName', username)
         conf.configureSetting('steamPassword', password)
 

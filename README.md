@@ -4,6 +4,12 @@ A Steam Workshop Downloader CLI-tool for linux,
 Developed by NBZion.
 
 ## Installation
+Make sure you have the following installed in your system
+```
+python3
+python3-env or virtualenv
+```
+
 Download `smd` from releases tab, and run the following commands:
 ```bash
 chmod +x ./smd # Allow execution
@@ -46,4 +52,5 @@ paste your workshop url/link. It will be downloaded to `downloadDir`.
 ## TODO
 - Windows Support
 -  ✅ Wrapper Scripts 
+- Compile into whl?
 

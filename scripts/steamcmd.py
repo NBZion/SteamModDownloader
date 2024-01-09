@@ -4,6 +4,7 @@ from re import sub
 import wget
 import subprocess
 import shutil
+import json
 
 # Variables
 steamCmdUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
@@ -36,5 +37,12 @@ def download(id,gameId,name,insDir):
     modFol=conDir+gameId+'/'+id+'/'
     outPathName=insDir+'/'+name
     if os.path.exists(outPathName): print('Updating File (Existing File)')
+    # Prepare info.json for mod
+    with open(os.path.join(modFol,'smbinfo.json'), 'w') as jsonFile:
+        infoData= {
+            "name": name,
+            "gameID": gameId
+        }
+        json.dump(infoData,jsonFile,indent=4)
     shutil.copytree(modFol,outPathName,dirs_exist_ok=True)
     shutil.rmtree(modFol)

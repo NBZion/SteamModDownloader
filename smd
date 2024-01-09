@@ -45,7 +45,7 @@ function reinstall {
     git clone https://github.com/NBZion/SteamModDownloader.git
 
     # Make venv(due to recent python changes)
-    python3 -m env .clientEnv
+    python3 -m venv .clientEnv
 
     # Move files to current directory and dispose of cloned folder
     mv ./SteamModDownloader/* .

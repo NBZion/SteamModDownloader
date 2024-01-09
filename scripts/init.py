@@ -2,6 +2,8 @@ from scripts.steamcmd import checkAndDownloadSteamCmd
 import os
 import scripts.config as conf
 import scripts.steam as steam
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
 from sys import exit
 import requests
 
@@ -22,7 +24,9 @@ def checkConfig():
 
     # Reconfigure download directory setting if invalid
     if not os.path.exists(conf.fetchConfiguration('downloadDir')):
-        prompt = input('Non-existent mod download directory, please enter a new one => ')
+        Tk().withdraw()
+        print('Non-existent mod download directory, please enter a new one => ')
+        prompt = askdirectory()
         conf.configureSetting('downloadDir', prompt)
 
     # Reconfigure gameID if empty
@@ -77,7 +81,11 @@ def configure():
     prompt = input('> ')
     #print('--------------------------------------------------')
     print('What value do you want to change it to?')
-    value = input('> ')
+    if prompt == '2':
+        Tk().withdraw()
+        value = askdirectory()
+    else:
+        value = input('> ')
     match prompt:
         case '1':
             setting='gameID'

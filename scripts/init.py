@@ -68,6 +68,11 @@ def downloadMods():
             print('(ERROR) Invalid URL, awaiting new.')
     #print('--------------------------------------------------')
 
+def listMods():
+    for dir in os.listdir(conf.fetchConfiguration('2')):
+        if os.path.join(conf.fetchConfiguration('2'),dir+'/smbinfo.json').exists():
+            print("Exists")
+
 def configure():
     print("(DISCLAIMER) Information isn't gathered, and is only stored locally.")
     print(
@@ -109,15 +114,18 @@ def start():
     checkAndDownloadSteamCmd()
     while True:
         print('Welcome to SWD!')
-        print('[1] => Download Mods\n[2] => Open Settings\n[3] => Exit')
+        print('[1] => Download Mods\n[2] => List Mods\n[3] => Open Settings\n[4] => Exit')
         prompt = input('> ')
         if prompt == '1':
             downloadMods()
             break
         elif prompt == '2':
-            configure()
+            listMods()
             break
         elif prompt == '3':
+            configure()
+            break
+        elif prompt == '4':
             exit()
         else:
             print('(ERROR) Invalid option passed, exiting.')

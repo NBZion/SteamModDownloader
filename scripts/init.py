@@ -15,6 +15,9 @@ def checkVersion():
 
     if currentVersion != listedVersion:
         print("[WARNING] Please update SMD with smd update!")
+        print("Client Version: " + currentVersion)
+        print("Listed Version: " + listedVersion)
+        print("--------------------------------------------------")
 
     
 def checkConfig():

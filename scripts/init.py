@@ -1,5 +1,6 @@
 from scripts.steamcmd import checkAndDownloadSteamCmd
 import os
+import json
 import scripts.config as conf
 import scripts.steam as steam
 from tkinter import Tk
@@ -69,9 +70,14 @@ def downloadMods():
     #print('--------------------------------------------------')
 
 def listMods():
-    for dir in os.listdir(conf.fetchConfiguration('2')):
-        if os.path.join(conf.fetchConfiguration('2'),dir+'/smbinfo.json').exists():
-            print("Exists")
+    print("--------------------------------------------------")
+    print("MODS IN '"+conf.fetchConfiguration("downloadDir")+"'...\n")
+    for dir in os.listdir(conf.fetchConfiguration('downloadDir')):
+        smbDir=os.path.join(conf.fetchConfiguration('downloadDir'),os.path.join(dir, 'smbinfo.json'))
+        if os.path.exists(smbDir):
+            jsonData=json.load(open(smbDir, 'r'))
+            print(jsonData['name'])
+    print("--------------------------------------------------")
 
 def configure():
     print("(DISCLAIMER) Information isn't gathered, and is only stored locally.")
@@ -121,7 +127,6 @@ def start():
             break
         elif prompt == '2':
             listMods()
-            break
         elif prompt == '3':
             configure()
             break

@@ -50,7 +50,7 @@ paste your workshop url/link. It will be downloaded to `downloadDir`.
 - This project is still being updated, it's just that I'm either busy or don't have a feature to add, so please suggest potential features or report bugs in the issues page.
 
 ## TODO
-[] Windows Support
-[x] Wrapper Scripts 
-[] Compile into whl
+- [ ] Windows Support
+- [x] Wrapper Scripts 
+- [ ] Compile into whl
 

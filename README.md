@@ -45,7 +45,7 @@ paste your workshop url/link. It will be downloaded to `downloadDir`.
 
 ## Some Things To Note...
 - This project is currently only built for the linux python version.
-- Some mods may not download as they require an actual account.
+- Some mods may not download in anonymous mode, if so please use steam account option in config.
 - My code is messy, so feel free to pull-request any changes!
 - This project is still being updated, it's just that I'm either busy or don't have a feature to add, so please suggest potential features or report bugs in the issues page.
 

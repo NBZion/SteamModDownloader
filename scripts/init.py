@@ -1,5 +1,5 @@
 from scripts.steamcmd import checkAndDownloadSteamCmd
-import os
+import os, sys
 import json
 import scripts.config as conf
 import scripts.steam as steam
@@ -27,10 +27,15 @@ def checkConfig():
             f.write('{"downloadDir":"","anonymousMode":"","steamAccountName":"","steamPassword":"","gameID":""}')
 
     # Reconfigure download directory setting if invalid
-    if not os.path.exists(conf.fetchConfiguration('downloadDir')):
-        Tk().withdraw()
+    if not os.path.exists(conf.fetchConfiguration('downloadDir')):  
         print('Non-existent mod download directory, please enter a new one => ')
-        prompt = askdirectory()
+        prompt=None
+        if sys.stdout.isatty():
+            prompt=input()
+        else:
+            Tk().withdraw()
+            prompt = askdirectory() 
+        
         conf.configureSetting('downloadDir', prompt)
 
     # Reconfigure gameID if empty

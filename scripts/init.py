@@ -100,7 +100,7 @@ def configure():
     prompt = input('> ')
     #print('--------------------------------------------------')
     print('What value do you want to change it to?')
-    if prompt == '2':
+    if prompt == '2' and not sys.stdout.isatty():
         Tk().withdraw()
         value = askdirectory()
     else:

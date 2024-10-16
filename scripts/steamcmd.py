@@ -7,7 +7,7 @@ import shutil
 import json
 
 # Variables
-steamCmdUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
+steamCmdLinuxUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
 steamCmdPath="./scripts/steamcmd/"
 workDirectory=os.getcwd()+'/scripts/steamcmd/workshop'
 conDir=workDirectory+'/steamapps/workshop/content/'
@@ -22,7 +22,7 @@ def checkAndDownloadSteamCmd():
         os.mkdir(steamCmdPath)
     if len(os.listdir(steamCmdPath)) == 0:
         print("SteamCMD not present, Downloading...")
-        wget.download(steamCmdUrl,steamCmdPath)
+        wget.download(steamCmdLinuxUrl,steamCmdPath)
         subprocess.call(['tar','-xvf', steamCmdPath+'steamcmd_linux.tar.gz','-C',steamCmdPath])
         os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
         os.mkdir('./scripts/steamcmd/workshop')

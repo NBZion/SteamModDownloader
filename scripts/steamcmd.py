@@ -8,6 +8,7 @@ import json
 
 # Variables
 steamCmdLinuxUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
+steamCmdWindowsUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 steamCmdPath="./scripts/steamcmd/"
 workDirectory=os.getcwd()+'/scripts/steamcmd/workshop'
 conDir=workDirectory+'/steamapps/workshop/content/'
@@ -20,18 +21,25 @@ def anonCheck():
 def checkAndDownloadSteamCmd():
     if not os.path.exists(steamCmdPath):
         os.mkdir(steamCmdPath)
+    print("SteamCMD not present, Downloading...")
     if len(os.listdir(steamCmdPath)) == 0:
-        print("SteamCMD not present, Downloading...")
-        wget.download(steamCmdLinuxUrl,steamCmdPath)
-        subprocess.call(['tar','-xvf', steamCmdPath+'steamcmd_linux.tar.gz','-C',steamCmdPath])
-        os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
+        if os.name == 'posix':
+            wget.download(steamCmdLinuxUrl,steamCmdPath)
+            subprocess.call(['tar','-xvf', steamCmdPath+'steamcmd_linux.tar.gz','-C',steamCmdPath])
+            os.environ["steamCmdExe"] = "steamcmd.sh"
+            os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
+        if os.name == 'nt':
+            wget.download(steamCmdWindowsUrl,steamCmdPath)
+            shutil.unpack_archive(steamCmdPath+'steamcmd.zip',steamCmdPath)
+            os.environ["steamCmdExe"] = "steamcmd.exe"
+            os.remove(steamCmdPath+"steamcmd.zip")
         os.mkdir('./scripts/steamcmd/workshop')
     else:
         return
 def download(id,gameId,name,insDir):
     print('Downloading '+ name+'(MODID: '+id+' GAMEID: '+gameId+')')
     print('--------------------------------------------------')
-    subprocess.run([steamCmdPath+'steamcmd.sh','+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
+    subprocess.run([steamCmdPath+os.environ["steamCmdExe"],'+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
     print('Moving and Renaming ' +name+' ('+id+')')
     modFol=conDir+gameId+'/'+id+'/'

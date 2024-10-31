@@ -12,7 +12,6 @@ steamCmdWindowsUrl="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zi
 steamCmdPath="./scripts/steamcmd/"
 workDirectory=os.getcwd()+'/scripts/steamcmd/workshop'
 conDir=workDirectory+'/steamapps/workshop/content/'
-tarFile=None
 def anonCheck():
     if conf.fetchConfiguration("anonymousMode") == "false":
         return conf.fetchConfiguration("steamAccountName") + " " + conf.fetchConfiguration("steamPassword")

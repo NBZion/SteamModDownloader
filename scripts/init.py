@@ -33,8 +33,12 @@ def checkConfig():
         if sys.stdout.isatty():
             prompt=input()
         else:
-            Tk().withdraw()
-            prompt = askdirectory() 
+            try:
+                Tk().withdraw()
+                prompt = askdirectory() 
+            except ImportError:
+                print('(ERROR) TKInter not installed, resulting to default(Type mod download directory manually).')
+                prompt=input()
         
         conf.configureSetting('downloadDir', prompt)
 

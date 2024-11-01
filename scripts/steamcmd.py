@@ -24,7 +24,7 @@ def checkAndDownloadSteamCmd():
     if len(os.listdir(steamCmdPath)) == 0:
         if os.name == 'posix':
             wget.download(steamCmdLinuxUrl,steamCmdPath)
-            subprocess.call(['tar','-xvf', steamCmdPath+'steamcmd_linux.tar.gz','-C',steamCmdPath])
+            shutil.unpack_archive(steamCmdPath+'steamcmd_linux.tar.gz',steamCmdPath)
             os.environ["steamCmdExe"] = "steamcmd.sh"
             os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
         if os.name == 'nt':

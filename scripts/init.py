@@ -6,6 +6,7 @@ import scripts.steam as steam
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 from sys import exit
+from bs4 import BeautifulSoup
 import requests
 
 
@@ -89,6 +90,16 @@ def listMods():
         if os.path.exists(smbDir):
             jsonData=json.load(open(smbDir, 'r'))
             print(jsonData['name'])
+        else:
+            # Very Slow, Might Fix Soon
+            url="https://steamcommunity.com/sharedfiles/filedetails/?id="+dir
+            try:
+                res = requests.get(url)
+                doc = BeautifulSoup(res.text, "html.parser")
+                title = doc.head.title.text.split("::")[1]
+                print(title, "(MODID: "+dir+")")
+            except:
+                print("(ERROR) Invalid URL, awaiting new.")
     print("--------------------------------------------------")
 
 def configure():

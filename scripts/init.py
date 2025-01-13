@@ -68,7 +68,7 @@ def checkConfig():
 
     # Set OS if empty
     if conf.fetchConfiguration("os") == "":
-        conf.configureSetting('os', sys.platform)
+        conf.configureSetting('os', os.name)
 
 def downloadMods():
     while True:

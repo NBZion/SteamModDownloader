@@ -34,7 +34,7 @@ def checkAndDownloadSteamCmd():
     else:
         return
 def download(id,gameId,name,insDir):
-    
+
     steamCmdExe=""
     if conf.fetchConfiguration("os") == "nt":
         steamCmdExe="steamcmd.exe"
@@ -43,7 +43,8 @@ def download(id,gameId,name,insDir):
 
     print('Downloading '+ name+'(MODID: '+id+' GAMEID: '+gameId+')')
     print('--------------------------------------------------')
-    subprocess.run([steamCmdPath+steamCmdExe,'+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
+    print(os.path.join(steamCmdPath,steamCmdExe))
+    subprocess.run([os.path.join(steamCmdPath,steamCmdExe),'+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
     print('Moving and Renaming ' +name+' ('+id+')')
     modFol=conDir+gameId+'/'+id+'/'

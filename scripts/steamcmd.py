@@ -25,20 +25,25 @@ def checkAndDownloadSteamCmd():
         if os.name == 'posix':
             wget.download(steamCmdLinuxUrl,steamCmdPath)
             shutil.unpack_archive(steamCmdPath+'steamcmd_linux.tar.gz',steamCmdPath)
-            os.environ["steamCmdExe"] = "steamcmd.sh"
             os.remove(steamCmdPath+'steamcmd_linux.tar.gz')
         if os.name == 'nt':
             wget.download(steamCmdWindowsUrl,steamCmdPath)
             shutil.unpack_archive(steamCmdPath+'steamcmd.zip',steamCmdPath)
-            os.environ["steamCmdExe"] = "steamcmd.exe"
             os.remove(steamCmdPath+"steamcmd.zip")
         os.mkdir('./scripts/steamcmd/workshop')
     else:
         return
 def download(id,gameId,name,insDir):
+    
+    steamCmdExe=""
+    if conf.fetchConfiguration("os") == "nt":
+        steamCmdExe="steamcmd.exe"
+    else:
+        steamCmdExe="steamcmd.sh"
+
     print('Downloading '+ name+'(MODID: '+id+' GAMEID: '+gameId+')')
     print('--------------------------------------------------')
-    subprocess.run([steamCmdPath+os.environ["steamCmdExe"],'+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
+    subprocess.run([steamCmdPath+steamCmdExe,'+force_install_dir '+workDirectory,f'+login {anonCheck()}',f'+workshop_download_item {gameId} {id}','+exit'])
     print('\n--------------------------------------------------')
     print('Moving and Renaming ' +name+' ('+id+')')
     modFol=conDir+gameId+'/'+id+'/'

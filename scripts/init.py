@@ -25,7 +25,7 @@ def checkConfig():
     # Make configuration file if missing
     if not os.path.exists('./conf.json'):
         with open('conf.json', 'w') as f:
-            f.write('{"downloadDir":"","anonymousMode":"","steamAccountName":"","steamPassword":"","gameID":""}')
+            f.write('{"downloadDir":"","anonymousMode":"","steamAccountName":"","steamPassword":"","gameID":"","os":""}')
 
     # Reconfigure download directory setting if invalid
     if not os.path.exists(conf.fetchConfiguration('downloadDir')):  
@@ -65,6 +65,10 @@ def checkConfig():
         username, password = conf.getCredentials()
         conf.configureSetting('steamAccountName', username)
         conf.configureSetting('steamPassword', password)
+
+    # Set OS if empty
+    if conf.fetchConfiguration("os") == "":
+        conf.configureSetting('os', sys.platform)
 
 def downloadMods():
     while True:

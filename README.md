@@ -52,5 +52,5 @@ paste your workshop url/link. It will be downloaded to `downloadDir`.
 ## TODO
 - [X] Windows Support
 - [x] Wrapper Scripts 
-- [ ] Compile into whl
+- [ ] Compile into whl/binary
 

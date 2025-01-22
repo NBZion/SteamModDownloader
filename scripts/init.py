@@ -150,6 +150,7 @@ def start():
         print('[1] => Download Mods\n[2] => List Mods\n[3] => Open Settings\n[4] => Exit')
         prompt = input('> ')
         if prompt == '1':
+            checkAndDownloadSteamCmd()
             downloadMods()
             break
         elif prompt == '2':

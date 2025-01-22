@@ -20,8 +20,8 @@ def anonCheck():
 def checkAndDownloadSteamCmd():
     if not os.path.exists(steamCmdPath):
         os.mkdir(steamCmdPath)
-    print("SteamCMD not present, Downloading...")
     if len(os.listdir(steamCmdPath)) == 0:
+        print("SteamCMD not present, Downloading...")
         if os.name == 'posix':
             wget.download(steamCmdLinuxUrl,steamCmdPath)
             shutil.unpack_archive(steamCmdPath+'steamcmd_linux.tar.gz',steamCmdPath)
